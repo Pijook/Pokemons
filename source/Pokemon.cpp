@@ -61,7 +61,7 @@ void Pokemon::attackPokemon(Pokemon *toAttack, Attack* usedAttack) {
 
     if(dodged){
         std::cout << getName() << " used attack " << usedAttack->getName() << " tried to deal " << damage << " to " << toAttack->getName() << std::endl;
-        std::cout << toAttack->getName() << "dodged!" << std::endl;
+        std::cout << toAttack->getName() << " dodged!" << std::endl;
     }
     else if(missed){
         std::cout << getName() << " used attack " << usedAttack->getName() << " but missed! " << std::endl;
@@ -266,6 +266,7 @@ Pokemon::Pokemon(const Pokemon& oldPokemon) {
     this->specialAttack = oldPokemon.specialAttack;
     this->level = oldPokemon.level;
     this->pokeIndex = oldPokemon.pokeIndex;
+    this->specialMove = oldPokemon.specialMove;
 }
 
 bool Pokemon::readyToEvolve() {
@@ -296,3 +297,10 @@ Pokemon::Pokemon(const std::string &name, const std::string &type, const std::ve
                                                      specialDefense(specialDefense), specialAttack(specialAttack),
                                                      pokeIndex(pokeIndex) {}
 
+const std::function<void(Pokemon *, Pokemon *)> &Pokemon::getSpecialMove() const {
+    return specialMove;
+}
+
+void Pokemon::setSpecialMove(const std::function<void(Pokemon *, Pokemon *)> &specialMove) {
+    Pokemon::specialMove = specialMove;
+}

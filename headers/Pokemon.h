@@ -8,6 +8,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <functional>
 #include "Attack.h"
 
 class Pokemon {
@@ -16,6 +17,7 @@ private:
     std::string name;
     std::string type;
     std::vector<Attack*> attacks;
+    std::function<void(Pokemon* attacking, Pokemon* toAttack)> specialMove;
     int level;
     int expToLevelUp;
     int currentExp;
@@ -67,6 +69,10 @@ public:
     const std::vector<Attack *> &getAttacks() const;
 
     void setAttacks(const std::vector<Attack *> &attacks);
+
+    const std::function<void(Pokemon *, Pokemon *)> &getSpecialMove() const;
+
+    void setSpecialMove(const std::function<void(Pokemon *, Pokemon *)> &specialMove);
 
     void showInfo();
 

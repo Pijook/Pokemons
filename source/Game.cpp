@@ -39,28 +39,23 @@ void start(){
     else{
         loadData();
         std::cout << "Loaded saved data!" << std::endl;
-
-        std::cout << playerCharacter->getName() << std::endl;
-        for(Player* enemy : enemies){
-            std::cout << enemy->getName() << std::endl;
-        }
     }
 
     for(size_t i = battleIndex; i < enemies.size(); i++){
         Player* enemy = enemies.at(i);
-        battleIndex = i;
 
         bool result = startBattle(playerCharacter, enemy);
 
         if(result){
             std::cout << "You won!" << std::endl;
+            battleIndex = i + 1;
 
             invalidDecision:
             std::cout << "Do you wish to continue?" << std::endl;
             std::cout << "1. Yes" << std::endl;
             std::cout << "2. No" << std::endl;
 
-            int decision = requestForValue("nextFight");
+            int decision = requestForValue("nextFight"); // -1
 
             if(decision != 1 && decision != 2){
                 goto invalidDecision;
@@ -298,8 +293,9 @@ bool startBattle(Player* player, Player* enemy){
             invalidDecision:
             std::cout << "What do you want to do?" << std::endl;
             std::cout << "1. Attack" << std::endl;
-            std::cout << "2. Change pokemon" << std::endl;
-            std::cout << "3. Evolve pokemon" << std::endl;
+            std::cout << "2. Special Attack" << std::endl;
+            std::cout << "3. Change pokemon" << std::endl;
+            std::cout << "4. Evolve pokemon" << std::endl;
 
             decision = requestForValue("battle");
 
@@ -316,9 +312,16 @@ bool startBattle(Player* player, Player* enemy){
                 }
             }
             else if(decision == 2){
-                openChangePokemon(player);
+                Pokemon* selectedPokemon = player->getPlayerPokemons().at(player->getSelectedPokemon());
+                Pokemon* enemyPokemon = enemy->getPlayerPokemons().at(enemy->getSelectedPokemon());
+
+                std::function specialMove = selectedPokemon->getSpecialMove();
+                specialMove(selectedPokemon, enemyPokemon);
             }
             else if(decision == 3){
+                openChangePokemon(player);
+            }
+            else if(decision == 4){
                 bool hasPokemonsToEvolve = false;
                 for(Pokemon* pokemon : player->getPlayerPokemons()){
                     if(pokemon->readyToEvolve()){

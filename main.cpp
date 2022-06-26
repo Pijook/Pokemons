@@ -3,11 +3,9 @@
 #include "headers/Game.h"
 
 int main() {
-
     loadPokemons();
     start();
     saveData();
-
     return 0;
 }
 
