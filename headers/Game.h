@@ -15,7 +15,15 @@ extern int difficulty;
 extern std::vector<Player*> enemies;
 extern Player* playerCharacter;
 
+/**
+ * Loads data from file if file exists
+ * @return True if data got loaded
+ */
 bool loadData();
+
+/**
+ * Saves game data to files player.txt and enemies.txt
+ */
 void saveData();
 
 /**

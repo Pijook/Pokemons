@@ -72,6 +72,10 @@ void start(){
     }
 }
 
+/**
+ * Loads data from file if file exists
+ * @return True if data got loaded
+ */
 bool loadData() {
     std::fstream* playerStream = new std::fstream("player.txt");
 
@@ -116,6 +120,9 @@ bool loadData() {
     return true;
 }
 
+/**
+ * Saves game data to files player.txt and enemies.txt
+ */
 void saveData() {
     remove("player.txt");
 

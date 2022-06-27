@@ -366,6 +366,11 @@ void loadPokemons() {
     pokemons.push_back(palkia);
 }
 
+/**
+ * Loads pokemon from given stream
+ * @param fstream Stream that contains data of pokemon
+ * @return Pointer to created pokemon
+ */
 Pokemon *loadPokemonFromFile(std::fstream* fstream) {
     std::string readText = "";
     std::getline(*fstream, readText);
@@ -411,6 +416,11 @@ Pokemon *loadPokemonFromFile(std::fstream* fstream) {
     return pokemon;
 }
 
+/**
+ * Saves pokemon to given stream
+ * @param ofstream Stream to use to save
+ * @param pokemon Pokemon to save
+ */
 void savePokemonToFile(std::ofstream* ofstream, Pokemon *pokemon) {
     *ofstream << pokemon->getPokeIndex() << std::endl;
     *ofstream << pokemon->getLevel() << std::endl;
